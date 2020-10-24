@@ -34,17 +34,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameBoard extends JFrame {
+public class GameBoard extends JFrame  {
     JPanel panel= new JPanel();
     JButton[][] buttons= new JButton[4][4];
     JButton newGameButton= new JButton("New game");
 
     public GameBoard(){
-        panel.setLayout(new GridLayout(4,4));
+        panel.setLayout(new GridLayout(4,4,2,2));
         add(panel, BorderLayout.CENTER);
 
         createButtonsArray();
         addButtonsToPanel();
+
+
+
+
 
         setSize(500,500);
         panel.setBackground(Color.white);
@@ -55,14 +59,16 @@ public class GameBoard extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void addButtonsToPanel() {
+    public void addButtonsToPanel() {
         panel.removeAll();
         for(int a=0; a<4; a++){
             for(int b=0; b<4; b++){
                 if(buttons[a][b] == null) {
                     panel.add(new JPanel());
+
                 } else {
                     panel.add(buttons[a][b]);
+
                 }
             }
         }
@@ -79,10 +85,12 @@ public class GameBoard extends JFrame {
                     buttons[a][b] = new JButton(Integer.toString(nummer));
                     buttons[a][b].setSize(50, 50);
                     buttons[a][b].setBackground(Color.pink);
+                    buttons[a][b].addActionListener(new ButtonClick(buttons,this));
                 }
             }
         }
     }
+
 
 
 }
