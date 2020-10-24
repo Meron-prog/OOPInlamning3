@@ -11,17 +11,8 @@ import java.awt.event.ActionListener;
  */
 public class ButtonClick  implements ActionListener {
     JButton[][] buttons;
-    //JButton newGameButton;
     GameBoard gameBoard;
 
-
-    //ButtonClick(){
-        //this.buttons = new JButton[4][4];
-        //this.newGameButton = new JButton("");
-
-
-
-    //}
 
     public ButtonClick(JButton[][] buttons, GameBoard gameBoard) {
         this.buttons=buttons;
