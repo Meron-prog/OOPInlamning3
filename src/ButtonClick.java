@@ -26,6 +26,7 @@ public class ButtonClick  implements ActionListener {
     public ButtonClick(JButton[][] buttons, GameBoard gameBoard) {
         this.buttons=buttons;
         this.gameBoard=gameBoard;
+
     }
 
     @Override
