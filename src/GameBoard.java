@@ -62,6 +62,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class GameBoard extends JFrame  {
     JPanel panel= new JPanel();
@@ -102,6 +103,32 @@ public class GameBoard extends JFrame  {
             }
         }
         panel.validate();
+    }
+    public void scramble(GameBoard gameBoard) {
+        boolean[] used = new boolean[16];
+        JButton[][] buttons = new JButton[4][4];
+        Random random = new Random();
+        JButton num;
+
+
+        for (int a = 0; a < 4; a++) {
+            for (int b = 0; b < 4; b++) {
+                int val = (int) (16 * Math.random());
+
+                while (used[val]) {
+                    val=(int)(16*Math.random());
+                }
+                used[val]=true;
+                if (val!=0)
+                    buttons[a][b].setText(""+val);
+                else {
+                    buttons[a][b].setBackground(Color.black);
+                }
+
+
+
+            }
+        }
     }
 
     private void createButtonsArray() {
