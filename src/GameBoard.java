@@ -78,10 +78,18 @@ public class GameBoard extends JFrame {
         scramble();
         addButtonsToPanel();
 
+        newGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                scramble();
+
+            }
+        });
+
+
 
         setSize(500, 500);
         panel.setBackground(Color.white);
-        //panel.add(newGameButton);
         add(newGameButton, BorderLayout.PAGE_END);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -124,7 +132,6 @@ public class GameBoard extends JFrame {
 
         }
     }
-
 
     private void createButtonsArray() {
         int nummer = 0;
