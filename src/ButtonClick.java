@@ -9,19 +9,9 @@ import java.awt.event.ActionListener;
  * Project:OOPInlamning3
  * Copyright: MIT
  */
-public class ButtonClick  implements ActionListener {
+public class ButtonClick implements ActionListener {
     JButton[][] buttons;
-    //JButton newGameButton;
     GameBoard gameBoard;
-
-
-    //ButtonClick(){
-        //this.buttons = new JButton[4][4];
-        //this.newGameButton = new JButton("");
-
-
-
-    //}
 
     public ButtonClick(JButton[][] buttons, GameBoard gameBoard) {
         this.buttons=buttons;
@@ -48,6 +38,7 @@ public class ButtonClick  implements ActionListener {
                         buttons[row][column]=null;
                     }
                     gameBoard.addButtonsToPanel();
+                    MessageDisplay.checkIfCorrect(buttons);
                     return;
 
                 }
