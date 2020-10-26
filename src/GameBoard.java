@@ -1,64 +1,3 @@
-/*
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class GameBoard extends JFrame {
-    JPanel panel= new JPanel();
-    JButton[][] buttons= new JButton[4][4];
-    JButton newGameButton= new JButton("New game");
-
-    public GameBoard(){
-        panel.setLayout(new GridLayout(4,4));
-        add(panel, BorderLayout.CENTER);
-
-        createButtonsArray();
-        addButtonsToPanel();
-
-        setSize(500,500);
-        panel.setBackground(Color.white);
-        //panel.add(newGameButton);
-        add(newGameButton, BorderLayout.PAGE_END);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private void addButtonsToPanel() {
-        panel.removeAll();
-        for(int a=0; a<4; a++){
-            for(int b=0; b<4; b++){
-                if(buttons[a][b] == null) {
-                    panel.add(new JPanel());
-                } else {
-                    panel.add(buttons[a][b]);
-                }
-            }
-        }
-        panel.validate();
-    }
-
-    private void createButtonsArray() {
-        int nummer=0;
-        for(int a=0; a<4; a++){
-            for(int b=0; b<4; b++){
-                if(a==3 && b==3) {
-                } else {
-                    nummer++;
-                    buttons[a][b] = new JButton(Integer.toString(nummer));
-                    buttons[a][b].setSize(50, 50);
-                    buttons[a][b].setBackground(Color.pink);
-                }
-            }
-        }
-    }
-
-
-}
-*/
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,14 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GameBoard extends JFrame {
-    JPanel panel = new JPanel();
-    JButton[][] buttons = new JButton[4][4];
-    JButton newGameButton = new JButton("New game");
+    private JPanel panel = new JPanel();
+    private JButton[][] buttons = new JButton[4][4];
+    private JButton newGameButton = new JButton("New game");
 
     public GameBoard() {
         panel.setLayout(new GridLayout(4, 4, 2, 2));
-        add(panel, BorderLayout.CENTER);
-
+        panel.setBackground(Color.white);
         createButtonsArray();
         scramble();
         addButtonsToPanel();
@@ -81,73 +19,65 @@ public class GameBoard extends JFrame {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttons = new JButton[4][4];
+                createButtonsArray();
                 scramble();
-
+                addButtonsToPanel();
             }
         });
 
-
-
-        setSize(500, 500);
-        panel.setBackground(Color.white);
+        add(panel, BorderLayout.CENTER);
         add(newGameButton, BorderLayout.PAGE_END);
+        setSize(500, 500);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    private void createButtonsArray() {
+        int nummer = 0;
+        for (int row = 0; row < 4; row++) {
+            for (int column = 0; column < 4; column++) {
+                if (row == 3 && column == 3) {
+                } else {
+                    nummer++;
+                    buttons[row][column] = new JButton(Integer.toString(nummer));
+                    buttons[row][column].setSize(50, 50);
+                    buttons[row][column].setBackground(Color.pink);
+                    buttons[row][column].addActionListener(new ButtonClick(buttons, this));
+                }
+            }
+        }
+    }
+
+    public void scramble() {
+        boolean[] usedNumber = new boolean[16];
+        Random random = new Random();
+        for (int row = 0; row < 4; row++) {
+            for (int column = 0; column < 4; column++) {
+                if (buttons[row][column] != null) {
+                    int randomNumber = random.nextInt(15) + 1;
+                    while (usedNumber[randomNumber]) {
+                        randomNumber = random.nextInt(15) + 1;
+                    }
+                    usedNumber[randomNumber] = true;
+                    buttons[row][column].setText("" + randomNumber);
+                }
+            }
+        }
+    }
+
     public void addButtonsToPanel() {
         panel.removeAll();
-        for (int a = 0; a < 4; a++) {
-            for (int b = 0; b < 4; b++) {
-                if (buttons[a][b] == null) {
+        for (int row = 0; row < 4; row++) {
+            for (int column = 0; column < 4; column++) {
+                if (buttons[row][column] == null) {
                     panel.add(new JPanel());
-
                 } else {
-                    panel.add(buttons[a][b]);
-
+                    panel.add(buttons[row][column]);
                 }
             }
         }
         panel.validate();
     }
-
-    public void scramble() {
-        boolean[] used = new boolean[16];
-        Random random = new Random();
-        for (int a = 0; a < 4; a++) {
-            for (int b = 0; b < 4; b++) {
-                if (buttons[a][b] != null) {
-                    int val = random.nextInt(15) + 1;
-                    while (used[val]) {
-                        val = random.nextInt(15) + 1;
-                    }
-                    used[val] = true;
-                    buttons[a][b].setText("" + val);
-                }
-
-
-            }
-
-
-        }
-    }
-
-    private void createButtonsArray() {
-        int nummer = 0;
-        for (int a = 0; a < 4; a++) {
-            for (int b = 0; b < 4; b++) {
-                if (a == 3 && b == 3) {
-                } else {
-                    nummer++;
-                    buttons[a][b] = new JButton(Integer.toString(nummer));
-                    buttons[a][b].setSize(50, 50);
-                    buttons[a][b].setBackground(Color.pink);
-                    buttons[a][b].addActionListener(new ButtonClick(buttons, this));
-                }
-            }
-        }
-    }
-
-
 }

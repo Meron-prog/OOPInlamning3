@@ -4,16 +4,16 @@ public class MessageDisplay {
 
     public static void checkIfCorrect(JButton[][] buttons) {
         int number = 0;
-        for (int a = 0; a < 4; a++) {
-            for (int b = 0; b < 4; b++) {
-                if(buttons[a][b] == null && (a != 3 || b != 3)) {
+        for (int row = 0; row < 4; row++) {
+            for (int column = 0; column < 4; column++) {
+                if(buttons[row][column] == null && (row != 3 || column != 3)) {
                     return;
-                } else if(buttons[a][b] == null && a == 3 && b == 3) {
+                } else if(buttons[row][column] == null && row == 3 && column == 3) {
                     JOptionPane.showMessageDialog(null, "Congratulation you win!");
                     return;
                 }
                 number++;
-                if (!buttons[a][b].getText().equals(Integer.toString(number))) {
+                if (!buttons[row][column].getText().equals(Integer.toString(number))) {
                     return;
                 }
             }
